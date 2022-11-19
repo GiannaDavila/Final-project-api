@@ -13,3 +13,10 @@ export async function addNewFood (req,res){
     })
     res.status(201).send({message: "New Food Added."})
 }
+
+export async function getAllFood(req, res){
+    const db = dbConnect()
+    const collection = await
+    db.collection('food').find().toArray()
+    res.send(collection)
+}
