@@ -1,18 +1,15 @@
 // import mongoClient 
-import { client } from './dbconnect.js';
+import { dbConnect } from './dbConnect.js';
 
-//get all food: GET 
-export const getFood = ( req, res ) => {
-    client.connect((err) => {
-        if(err){
-            res.status(500).send(err);
-            return;
-        }
-        const collection = client.db('test').collection('food');
-        collection.find().toArray((err, result) => {
-            if(err) res.status(500).send(err);
-            if(result) res.json(result);
-            client.close();
-        });
-    });
-};
+//Create food: POST
+export async function addNewFood (req,res){
+    const newFood = req.body
+    const db = dbConnect()
+    await db.collection('food').insertOne
+    (newFood)
+    .catch(err => {
+        res.status(500).send(err)
+        return
+    })
+    res.status(201).send({message: "New Food Added."})
+}

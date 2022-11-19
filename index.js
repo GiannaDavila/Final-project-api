@@ -1,26 +1,23 @@
 //import express
 import express from 'express';
-
 //import route functions
-import { getFood, addFood } from './src/food.js'
+import { addNewFood } from './src/food.js';
 
-//create a new server instance 
-const app = express();
+const app = express();//create a new server instance 
 
-//defining the port 
-const PORT = 3333;
-
-//will recieve json data
-app.use(express.json());
+app.use(express.json()); //will recieve json data
 
 //-- define the routes --
-//get all food from db
-app.get('/food', getFood);
+// app.get('/food', getFood)
+app.post('/food', addNewFood);
 
-//create new food
-app.post('/food', addFood);
+
+
+app.get('/', (req,res) => {
+    res.send("hello")
+})
+const PORT = 3030;//defining the port 
+
 
 //listen to the server on the specific port 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`listening on http://localhost:${PORT}`));
