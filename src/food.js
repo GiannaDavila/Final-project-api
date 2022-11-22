@@ -46,7 +46,7 @@ export async function getOneFood(req,res) {
 export async function deleteFood(req, res) {
     const db = dbConnect()
     const { foodId } = req.params
-    const collection = await db.collection("recipes")
+    await db.collection("food")
     .findOneAndDelete({ _id: new ObjectId(foodId) })
-  res.status(203).send('Recipe Deleted')
+  res.status(203).send('Food Deleted')
 }
