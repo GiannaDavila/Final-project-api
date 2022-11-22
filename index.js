@@ -1,10 +1,12 @@
 //import express
 import express from 'express';
+//importing cors
+import cors from 'cors';
 //import route functions
 import { addNewFood, getAllFood,  updateFood, getOneFood, deleteFood} from './src/food.js';
 
 const app = express();//create a new server instance 
-
+app.use(cors())
 app.use(express.json()); //will recieve json data
 
 //-- define the routes --
