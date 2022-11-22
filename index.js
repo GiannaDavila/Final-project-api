@@ -1,15 +1,18 @@
 //import express
 import express from 'express';
 //import route functions
-import { addNewFood, getAllFood} from './src/food.js';
+import { addNewFood, getAllFood,  updateFood, getOneFood, deleteFood} from './src/food.js';
 
 const app = express();//create a new server instance 
 
 app.use(express.json()); //will recieve json data
 
 //-- define the routes --
-app.get('/food', getAllFood)
+app.get('/food', getAllFood);
 app.post('/food', addNewFood);
+app.patch('/food/:foodId', updateFood)
+app.get('/food/:foodId', getOneFood)
+app.delete('/food/:foodId', deleteFood)
 
 
 

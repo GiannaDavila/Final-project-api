@@ -8,5 +8,5 @@ import { uri } from '../credentials.js';
 //create new MongoClient instance and export it 
 export function dbConnect() {
     const client = new MongoClient(uri);
-    return client.db("mydatabase");
+    return client.db("FinalProject");
 }

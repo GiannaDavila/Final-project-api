@@ -1,7 +1,8 @@
 // import mongoClient 
 import { dbConnect } from './dbConnect.js';
+import { ObjectId } from 'mongodb';
 
-//Create food: POST
+//add/create food: POST
 export async function addNewFood (req,res){
     const newFood = req.body
     const db = dbConnect()
@@ -13,10 +14,39 @@ export async function addNewFood (req,res){
     })
     res.status(201).send({message: "New Food Added."})
 }
-
+//get all food: GET
 export async function getAllFood(req, res){
     const db = dbConnect()
     const collection = await
     db.collection('food').find().toArray()
     res.send(collection)
+}
+//update food: UPDATE
+export async function updateFood(req,res){
+    const { foodId } = req.params
+    const db = dbConnect()
+    await db.collection('food')
+    .findOneAndUpdate({ _id: new
+    ObjectId(foodId) }, { $set: req.body })
+    .catch(err => {
+        res.status(500).send(err)
+        return
+    })
+    res.status(202).send({ message: 'food is updated'})
+}
+
+export async function getOneFood(req,res) {
+    const db = dbConnect()
+    const { foodId } = req.params 
+    const collection = await db.collection("food")
+    .find({ _id: new ObjectId(foodId)}).toArray()
+    res.send(collection)
+}
+
+export async function deleteFood(req, res) {
+    const db = dbConnect()
+    const { foodId } = req.params
+    const collection = await db.collection("recipes")
+    .findOneAndDelete({ _id: new ObjectId(foodId) })
+  res.status(203).send('Recipe Deleted')
 }
